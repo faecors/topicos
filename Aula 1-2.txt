@@ -1,0 +1,499 @@
+%%%%%%%%%%
+%Aula 1,2
+%%%%%%%%%%
+\documentclass[a4paper,12pt]{article}
+
+\input{comandos}
+\graphicspath{ {./images/} }
+\definecolor{light-gray}{gray}{0.90}
+
+\setlength{\parindent}{4em}    %paragrafo
+\setlength{\parskip}{0em}      %espaçamento entre paragrafs
+
+\title{Latex : uma brevíssima introdução}   
+\author{rafael.poerschke@gmail.com }
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Começando com o básico}
+
+\subsection{Preâmbulo}
+\\
+O propósito do preâmbulo é comunicar ao Latex o tipo de documento a ser escrito e quais pacotes serão carregados. Um pacote é um conjunto de adicional de funções como o \textbf{amsmath} para formatacoes adicionais em matemática. Para esse documento, foi utilizado:\\
+
+\begin{lstlisting}[escapechar=!]
+\documentclass[a4paper,12pt]{article}
+
+\input{comandos} %carrega o doc comandos que tem os pacotes
+\graphicspath{ {./images/} } % pasta de imagens
+\definecolor{light-gray}{gray}{0.90} % cor da fonte
+
+\setlength{\parindent}{4em}    %paragrafo
+\setlength{\parskip}{0em}      %espaçamento entre paragrafos
+
+\title{Latex : uma breve Introdução}   
+\author{rafael.poerschke@gmail.com }
+\date{\today}
+  \end{lstlisting}
+
+\\ 
+Pode-se definir a classe do documento com o comando \textbf{documentclass} e adicionar pacotes com o comando \textbf{usepackage}. Apenas o comando documentclass é obrigatório, pois é possível compilar documentos sem carregar pacotes - contudo alguma função poderá faltar. Vale ressaltar que o comando \textbf{usepackage} não deve ser usado no corpo do documento.
+  
+\subsection{Main document}
+
+O documento principal deve ser aberto como aparece aqui:
+
+\begin{lstlisting}[escapechar=!]
+\begin{document}
+% ...
+% ... Texto aqui
+% ...
+\end{document}
+\end{lstlisting}
+
+Entre esses dois comandos, podemos adicionar o conteúdo do texto. Ainda, será preciso formatar o texto.
+
+\subsection{Formatação em LaTeX}
+
+Primeiro podemos organizar o texto em título, subtítulo e subsubtítulo e por aí vai.\\
+
+\begin{lstlisting}[escapechar=!]
+\section{Texto aqui}   % Topo da hierarquia; automaticamente numerado
+\subsection{Texto aqui}
+\subsubsection{Texto aqui}
+
+\end{lstlisting}
+
+A definição de parágrafo deve ser feita no preâmbulo como o quadro que segue. Ainda, para uma nova linha/parágrafo o Latex ideintificará esse comando com uma linah deixada em branco ou com um "\verb+\\+" ao final da linha. \\ 
+
+\begin{lstlisting}[escapechar=!]
+\setlength{\parindent}{4em}    %paragrafo
+% "em" significa aproximadamente a largura de um 'M' (maiúsculo)
+\setlength{\parskip}{0em}      %espaçamento entre paragrafos
+%
+%
+Frase no texto e após o ponto final.\\ %será nova linha e parágrafoo
+%
+\end{lstlisting}
+
+Mas a maior vantagem do Latex é na formatação de fórmulas e símbolos matemáticos. Vemos algumas, utilziadas em economia:\\
+
+\begin{align*}
+\\
+q^{d}_{x} &= 10 + 5p_{x}\\
+f(x) &= x^2\\
+f'(x) &= 2x\\
+F(x) &= \int f(x)dx\\
+F(x) &= \frac{1}{3}x^3\\
+f(x) &= \sqrt{4}
+\end{align*}
+\\
+
+Esse rsultado foi feito com o seguinte código:\\
+
+\begin{lstlisting}[escapechar=!]
+
+\begin{align*}
+% o símbolo * irá exibir a expressão no centro da página
+q^{d}_{x} &= 10 &+ 5p_{x}\\
+f(x) &= x^2\\
+f'(x) &= 2x\\
+F(x) &= \int f(x)dx\\
+F(x) &= \frac{1}{3}x^3\\
+f(x) &= \sqrt{4}
+\end{align*}
+\end{lstlisting}
+
+\\
+Como você pode notar, novamente as expressões estão entre uma declaração \textbf{align}, ele aplica o ambiente \textit{align} nas nossa equações, contudo elas irão ser alinhadas ao centro e marcadas em linha com o sinal (\verb+&+). Caso a * seja removida do comando \textit{align}, cada linha será numerda  em sequência. Ainda, isso poderá igualmente ser feito manualmente, bem como há a pssibilidade de criação de um rótulo. 
+
+
+\section{Matrizes}
+
+\subsection{Array Environment}
+\\
+Para mais controle sobre as matrizes, o LaTeX possui um amabiente especial para elas. Precisamos apenas inserir o número de colunas, bem como a forma de alinhamento desejada. Como estamos criando uma matriz, nos iremos querer todos os elementos dela no centro. Nesse caso, utilizamos a letra c no número de vezes tal qual o número de colunas declaradas.\\ 
+
+Logo, podemos digitar cada elemento da matriz, separando cada coluna com \verb+&+ na linha, e separando as linhas da matriz com \verb+\\+. Esse ambiente cria apenas as posições, para criar os parênteses, precisamos declarar isso em separado. Agora vamos criar uma matriz com duas linhas e duas colunas dentro de colchetes: 
+
+\[
+  A_{2\times2} =
+  \left[ {\begin{array}{cc}
+    a_{11} & a_{12} \\
+    a_{21} & a_{22} \\
+  \end{array} } \right]
+\]
+
+Para isso, utilizamos o código:
+
+\begin{lstlisting}[escapechar=!]
+\[    
+  A_{2\times2} =  % o nome da matriz definido antes
+  \left[ {\begin{array}{cc} %observe que o colhcete foi colocado antes
+    a_{11} & a_{12} \\
+    a_{21} & a_{22} \\
+  \end{array} } \right]
+\]
+\end{lstlisting}
+
+Agora para matrizes maiores, ou com dimens˜ão $m \ times n$:
+
+\[
+  A_{m\times n} =
+  \left[ {\begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1n}\\
+    a_{21} & a_{22} & \cdots & a_{2n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    a_{m1} & a_{m2} & \cdots & a_{mn}\\
+  \end{array} } \right]
+\]
+
+Esse resultado foi obtido como comando:
+
+\begin{lstlisting}[escapechar=!]
+  
+ \[
+  A_{m\times n} =
+  \left[ {\begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1n}\\
+    a_{21} & a_{22} & \cdots & a_{2n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    a_{m1} & a_{m2} & \cdots & a_{mn}\\
+  \end{array} } \right]
+\]
+\end{lstlisting}
+
+Bom, mas tem um pacote que ajuda a ir mais longe...
+
+\subsection{Amsmath Package}
+\\
+
+Ainda, temos um segundo pacote que pode ajudar a variar o tipo de símbolo que envolve a matriz. Essa infomação é muito útil quando queremos também marcar o determinante por exemplo. Para isso temos o pacote, e vejamos algumas possibilidades do pacote:
+
+\begin{landscape}
+\begin{table}[!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Tipo de Matriz} & \textbf{Comando} & \textbf{Resultado} \\ \hline
+Plain & matrix & Somente os elementos da matriz \\ \hline
+Parentheses & pmatrix & Elementos entre parênteses \\ \hline
+Brackets & bmatrix & Elementos entre colchetes \\ \hline
+Braces & Bmatrix & Elementos entre chaves \\ \hline
+Pipes & vmatrix & Elementos entre uma barra vertical \\ \hline
+Double Pipes & Vmatrix & Elementos entre duas barras verticais \\ \hline
+Small Matrix & smallmatrix & Matriz normal e com tamanho reduzido \\ \hline
+\end{tabular}
+\end{table}
+\end{landscape}
+
+Primeiro, podemos escrever a matriz sem nenhuma marcação envolvendo os elementos da matriz.
+
+\[
+  A_{2\times 3} = 
+  \begin{matrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}
+  \end{matrix}
+\]
+
+Esse resultado foi obtido como comando:
+
+\begin{lstlisting}[escapechar=!]
+ \[
+  A_{2\times 3} = 
+  \begin{matrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}
+  \end{matrix}
+\]
+\end{lstlisting}
+
+Agora com parênteses:
+\[
+  A_{3\times 2} = 
+  \begin{pmatrix}
+    a_{11} & a_{12}\\
+    a_{21} & a_{22}\\
+    a_{31} & a_{32}
+  \end{pmatrix}
+\]
+
+Esse resultado foi obtido como comando:
+
+\begin{lstlisting}[escapechar=!]
+ \[
+  A_{3\times 2} = 
+  \begin{pmatrix}
+    a_{11} & a_{12}\\
+    a_{21} & a_{22}\\
+    a_{31} & a_{32}
+  \end{pmatrix}
+\]
+\end{lstlisting}
+
+Com os colchetes:
+
+\[
+  A_{4\times 3} = 
+  \begin{bmatrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33}\\
+    a_{41} & a_{42} & a_{43}
+  \end{bmatrix}
+\]
+
+Esse resultado foi obtido como comando:
+
+\begin{lstlisting}[escapechar=!]
+ \[
+  A_{4\times 3} = 
+  \begin{bmatrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33}\\
+    a_{41} & a_{42} & a_{43}
+  \end{bmatrix}
+\]
+\end{lstlisting}
+
+Com chaves:
+
+\[
+  A_{3\times 4} = 
+  \begin{Bmatrix}
+    a_{11} & a_{12} & a_{13} & a_{14}\\
+    a_{21} & a_{22} & a_{23} & a_{24}\\
+    a_{31} & a_{32} & a_{33} & a_{34}
+  \end{Bmatrix}
+\]
+
+Esse resultado foi obtido como comando:
+
+\begin{lstlisting}[escapechar=!]
+\[
+  A_{3\times 4} = 
+  \begin{Bmatrix}
+    a_{11} & a_{12} & a_{13} & a_{14}\\
+    a_{21} & a_{22} & a_{23} & a_{24}\\
+    a_{31} & a_{32} & a_{33} & a_{34}
+  \end{Bmatrix}
+\]
+\end{lstlisting}
+
+Com linhas verticais:
+
+\[
+  A_{3\times 3} = 
+  \begin{vmatrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33}
+  \end{vmatrix}
+\]
+
+Esse resultado foi obtido como comando:
+
+\begin{lstlisting}[escapechar=!]
+\[
+  A_{3\times 3} = 
+  \begin{vmatrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33}
+  \end{vmatrix}
+\]
+\end{lstlisting}
+
+Finalmente, com duas linhas verticais:
+
+\[
+  A_{3\times 3} = 
+  \begin{Vmatrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33}
+  \end{Vmatrix}
+\]
+
+Esse resultado foi obtido como comando:
+
+\begin{lstlisting}[escapechar=!]
+\[
+  A_{3\times 3} = 
+  \begin{Vmatrix}
+    a_{11} & a_{12} & a_{13}\\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33}
+  \end{Vmatrix}
+\]
+\end{lstlisting}
+
+\subsection{Operações com Matrizes}
+
+Aqui, iremos revisar algumas operações com matrizes
+\subsubsection{Transposta}
+
+\subsubsection{Soma/Subtração}
+\subsubsection{Inversa}
+\subsubsection{Determinante}
+\subsubsection{Multiplicação}
+
+% l' unite
+\newcommand{\myunit}{1 cm}
+\tikzset{
+    node style sp/.style={draw,circle,minimum size=\myunit},
+    node style ge/.style={circle,minimum size=\myunit},
+    arrow style mul/.style={draw,sloped,midway,fill=white},
+    arrow style plus/.style={midway,sloped,fill=white},
+}
+
+\begin{tikzpicture}[>=latex]
+% les matrices
+\matrix (A) [matrix of math nodes,
+             nodes = {node style ge},
+             left delimiter  = (,
+             right delimiter = )] at (0,0)
+{
+  a_{11} & a_{12} & \ldots & a_{1p}  \\
+  |[node style sp]| a_{21}
+         & |[node style sp]| a_{22}
+                  & \ldots
+                           & |[node style sp]| a_{2p} \\
+  \vdots & \vdots & \ddots & \vdots  \\
+  a_{n1} & a_{n2} & \ldots & a_{np}  \\
+};
+\node [draw,below=10pt] at (A.south) 
+    { $A$ : \textcolor{red}{$n$ rows} $p$ columns};
+
+\matrix (B) [matrix of math nodes,
+             nodes = {node style ge},
+             left delimiter  = (,
+             right delimiter = )] at (6*\myunit,6*\myunit)
+{
+  b_{11} & |[node style sp]| b_{12}
+                  & \ldots & b_{1q}  \\
+  b_{21} & |[node style sp]| b_{22}
+                  & \ldots & b_{2q}  \\
+  \vdots & \vdots & \ddots & \vdots  \\
+  b_{p1} & |[node style sp]| b_{p2}
+                  & \ldots & b_{pq}  \\
+};
+\node [draw,above=10pt] at (B.north) 
+    { $B$ : $p$ rows \textcolor{red}{$q$ columns}};
+% matrice résultat
+\matrix (C) [matrix of math nodes,
+             nodes = {node style ge},
+             left delimiter  = (,
+             right delimiter = )] at (6*\myunit,0)
+{
+  c_{11} & c_{12} & \ldots & c_{1q} \\
+  c_{21} & |[node style sp,red]| c_{22}
+                  & \ldots & c_{2q} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  c_{n1} & c_{n2} & \ldots & c_{nq} \\
+};
+% les fleches
+\draw[blue] (A-2-1.north) -- (C-2-2.north);
+\draw[blue] (A-2-1.south) -- (C-2-2.south);
+\draw[blue] (B-1-2.west)  -- (C-2-2.west);
+\draw[blue] (B-1-2.east)  -- (C-2-2.east);
+\draw[<->,red](A-2-1) to[in=180,out=90]
+	node[arrow style mul] (x) {$a_{21}\times b_{12}$} (B-1-2);
+\draw[<->,red](A-2-2) to[in=180,out=90]
+	node[arrow style mul] (y) {$a_{22}\times b_{22}$} (B-2-2);
+\draw[<->,red](A-2-4) to[in=180,out=90]
+	node[arrow style mul] (z) {$a_{2p}\times b_{p2}$} (B-4-2);
+\draw[red,->] (x) to node[arrow style plus] {$+$} (y)%
+    to node[arrow style plus] {$+\raisebox{.5ex}{\ldots}+$} (z)
+    to (C-2-2.north west);
+
+
+\node [draw,below=10pt] at (C.south) 
+    {$ C=A\times B$ : \textcolor{red}{$n$ rows}
+                      \textcolor{red}{$q$ columns}};
+
+\end{tikzpicture}
+
+\begin{tikzpicture}[>=latex]
+% unit
+% defintion of matrices
+\matrix (A) [matrix of math nodes,%
+             nodes = {node style ge},%
+             left delimiter  = (,%
+             right delimiter = )] at (0,0)
+{%
+  a_{11} &\ldots & a_{1k} & \ldots & a_{1p}  \\
+    \vdots & \ddots & \vdots & \vdots & \vdots \\
+  |[node style sp]| a_{i1} & \ldots%
+         & |[node style sp]| a_{ik}%
+                  & \ldots%
+                           & |[node style sp]| a_{ip} \\
+  \vdots & \vdots& \vdots & \ddots & \vdots  \\
+  a_{n1}& \ldots & a_{nk} & \ldots & a_{np}  \\
+};
+\node [draw,below] at (A.south)
+      { $A$ : \textcolor{red}{$n$ rows} $p$ columns};
+\matrix (B) [matrix of math nodes,%
+             nodes = {node style ge},%
+             left delimiter  = (,%
+             right delimiter =)] at (7*\myunit,7*\myunit)
+{%
+  b_{11} &  \ldots& |[node style sp]| b_{1j}%
+                  & \ldots & b_{1q}  \\
+  \vdots& \ddots & \vdots & \vdots & \vdots \\
+  b_{k1} &  \ldots& |[node style sp]| b_{kj}%
+                  & \ldots & b_{kq}  \\
+  \vdots& \vdots & \vdots & \ddots & \vdots \\
+  b_{p1} &  \ldots& |[node style sp]| b_{pj}%
+                  & \ldots & b_{pq}  \\
+};
+\node [draw,above] at (B.north)
+      { $B$ : $p$ rows \textcolor{red}{$q$ columns}};
+% matrice resultat
+\matrix (C) [matrix of math nodes,%
+             nodes = {node style ge},%
+             left delimiter  = (,%
+             right delimiter = )] at (7*\myunit,0)
+{%
+  c_{11} & \ldots& c_{1j} & \ldots & c_{1q} \\
+  \vdots& \ddots & \vdots & \vdots & \vdots \\
+    c_{i1}& \ldots & |[node style sp,red]| c_{ij}%
+                  & \ldots & c_{iq} \\
+  \vdots& \vdots & \vdots & \ddots & \vdots \\
+  c_{n1}& \ldots & c_{nk} & \ldots & c_{nq} \\
+};
+\node [draw,below] at (C.south) 
+    {$ C=A\times B$ : \textcolor{red}{$n$ rows}
+                      \textcolor{red}{$q$ columns}};
+% arrows
+\draw[blue] (A-3-1.north) -- (C-3-3.north);
+\draw[blue] (A-3-1.south) -- (C-3-3.south);
+\draw[blue] (B-1-3.west)  -- (C-3-3.west);
+\draw[blue] (B-1-3.east)  -- (C-3-3.east);
+\draw[<->,red](A-3-1) to[in=180,out=90] 
+    node[arrow style mul] (x) {$a_{i1}\times b_{1j}$} (B-1-3);
+\draw[<->,red](A-3-3) to[in=180,out=90] 
+    node[arrow style mul] (y) {$a_{ik}\times b_{kj}$}(B-3-3);
+\draw[<->,red](A-3-5) to[in=180,out=90] 
+    node[arrow style mul] (z) {$a_{ip}\times b_{pj}$}(B-5-3);
+\draw[red,->] (x) to node[arrow style plus] {$+\raisebox{.5ex}{\ldots}+$} (y)
+    to node[arrow style plus] {$+\raisebox{.5ex}{\ldots}+$} (z);
+                  %
+                  % to (C-3-3.north west);
+\draw[->,red,decorate,decoration=zigzag] (z) -- (C-3-3.north west);
+\end{tikzpicture}
+
+
+
+\subsection{MQO: Uma abordagem Matricial}
+
+\end{document}
+
+% encoding : utf8
+% format   : pdfLaTeX
+% author   : Alain Matthes
