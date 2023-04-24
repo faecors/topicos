@@ -1,0 +1,70 @@
+---
+title: "Análise de Séries Temporais: tendência determinística"
+author: "Rafael Pentiado Poerschke"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+      highlight: textmate
+      theme: flatly
+      number_sections: yes 
+      toc: yes
+      toc_float: 
+          collapsed: yes
+          smooth_croll: no
+  pdf_document: default
+editor_options:
+  markdown:
+    wrap: 72
+---
+---
+
+```{r setup, include=FALSE}
+# Pacotes básicos para instalar antes de começar
+library(dplyr)    # Serve para transformar dados
+library(ggplot2)  # The Grammar os Graphics ou GGPLOT, para fazer gráficos
+library(raster)   # Manipulação de dados
+library(modelr)   # Modelar funções e utilizar o pipe
+library(broom)    # Testes estatísticos
+knitr::opts_chunk$set(echo = TRUE)
+require(knitr)
+require(kableExtra)
+```
+
+#Componentes de uma Série Temporal - O estudo da Tendência Determinística
+
+**Objetivos:** 
+
+Identificar os componentes de uma *série de tempo*, isolar o mesmo e tratar a série para que a mesma possa ser usada em <span style="color: red;">modelos de previsão</span>. Iremos iniciar com  ***tendência determinística*** para posteriormente avançarmos para a estimação da <u>sazonalidade</u>.<br>
+
+# Tendência Determinística (Paramétrico - MQO)
+
+Primeiramente, vamos agora conhecer o conceito de <u>diretório de trabalho</u>. Esse *local* será destino e origem de todos as arquivos gerados e importados para o R.
+```{r workdirectory}
+getwd()            #Checando o diretório
+# ATENCAO: Com arquivos do tipo Rmd gralmente isso altera com relação a pasta que o arquivo do projeto está salvo...
+#opts_knit$set(root.dir = "~/Users/rafaelpoerschke/UFSM/Economia/Econometria Aplicada/Aula_2-Tendencia")
+#setwd("/Users/rafaelpoerschke/UFSM/Economia/Econometria Aplicada/Aula_2-Tendencia")
+```
+## Componentes de uma Série de Tempo
+
+## Estimando a tendência
+
+**Exemplo do Morettin**
+
+Para fazer o vetor da tendência determinística (linear) iremos utilizar o comando `seq(from,to,length)`, contudo `seq(from,to):` também gerará uma sequência. `by=`específica o incremento, `length=` específica o tamanho desejado da sequência e `seq(along=x):` gera uma sequência 1,2,...até x. ideal para o loop for
+
+```{r vetor tendencia}
+t <- seq(1,24,length=24)
+t 
+```
+Note que, conforme o exemplo do livro Morettin & Toloi, precisamos utilizar os dados mensais de consumo de energia entre 1977:jan e 1978:dez. O comando `n <- length(t)` pode  criar um item que represente o tamanho da amostra n.
+
+```{r n}
+n <- length(t) # criando o n
+n
+```
+
+Agora passamos para a parte fundamental, a importação dos dados.
+
+## Importando os dados
+
